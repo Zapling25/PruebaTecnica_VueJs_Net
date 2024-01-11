@@ -27,6 +27,15 @@ namespace PruebaTecnicaAPI.Controllers
             return lstAlumnos;
         }
 
+        [Route("crear")]
+        [HttpPost]
+        public ResponseModel CrearAlumno(CrearAlumnoRequest alumno)
+        {
+            ResponseModel response = new ResponseModel();
+            response.Mensaje = _alumnoQuery.CrearAlumno(alumno).Result;
+            return response;
+        }
+
         [Route("asignarAula")]
         [HttpPost]
         public ResponseModel AsignarAlumnoAula(int IdAula, int IdAlumno)

@@ -71,9 +71,30 @@ namespace Infrastructure.Queries
             }
         }
 
-        public Task CrearAlumno()
+        public async Task<string> CrearAlumno(CrearAlumnoRequest alumno)
         {
-            throw new NotImplementedException();
+            string mensaje = "";
+            try
+            {
+                using (SqlConnection cn = new SqlConnection(ConnectionString))
+                {
+                    string storedProcedureName = "XYZ_SP_API_ALUMNO_INS";
+                    var param = new DynamicParameters();
+                    param.Add("@PARAM_VC_NOMBRES", alumno.Nombre);
+                    param.Add("@PARAM_VC_APELLIDOS", alumno.Apellido);
+
+                    var result = await cn.QueryAsync(storedProcedureName, param, commandType: CommandType.StoredProcedure);
+                    foreach (var item in result)
+                    {
+                        mensaje = Convert.ToString(item.VC_MENSAJE);
+                    }
+                    return mensaje;
+                }
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
         }
 
         public async Task<string> EliminarAlumnoDeAula(int idAlumno)

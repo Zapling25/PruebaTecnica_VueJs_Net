@@ -7,7 +7,7 @@ namespace Infrastructure.Queries.interfaces
     {
         Task<List<Alumno>> ListarAlumnos();
         Task<string> AsignarAulaAlumno(int IdAula, int IdAlumno);
-        Task CrearAlumno();
+        Task<string> CrearAlumno(CrearAlumnoRequest alumno);
         Task<string> ActualizarAlumno(AlumnoRequest alumno);
         Task<string> EliminarAlumnoDeAula(int idAlumno);
     }
